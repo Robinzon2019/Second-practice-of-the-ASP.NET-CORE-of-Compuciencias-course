@@ -1,0 +1,52 @@
+﻿@page
+@model NominaModel
+
+@{
+    ViewData["Title"] = "Home page";
+
+    List<NominaModel> empleados = new List<NominaModel>()
+{
+        new NominaModel() { nombre = "Juan", apellido = "Perez", cargo = "Supervisor de seguridad", salario = 45000 },
+        new NominaModel() { nombre = "Pedro", apellido = "Gomez", cargo = "Auxiliar de almacen", salario = 20000 },
+        new NominaModel() { nombre = "Maria", apellido = "Rodriguez", cargo = "Contadora", salario = 33000 },
+        new NominaModel() { nombre = "Carla", apellido = "Mendez", cargo = "Cajera", salario = 20000 },
+        new NominaModel() { nombre = "Luisa", apellido = "Peralta", cargo = "Vendedora", salario = 40000 },
+        new NominaModel() { nombre = "Ana", apellido = "Garcia", cargo = "Asistente administrativa", salario = 35000 },
+        new NominaModel() { nombre = "Daniel", apellido = "Morillo", cargo = "Gerente de finanzas", salario = 80000 }
+    };
+}
+
+<h1 class="text-center my-4">Nómina</h1>
+
+<table class="table table-striped table-hover table-bordered">
+    <thead class="bg-dark text-white">
+        <tr>
+            <th>Nombre</th>
+            <th>Apellidos</th>
+            <th>Cargo</th>
+            <th>Salario</th>
+            <th>AFP</th>
+            <th>ARS</th>
+            <th>ISR</th>
+            <th>Total de descuentos</th>
+            <th>Salario neto</th>
+        </tr>
+    </thead>
+    <tbody>
+
+        @foreach (var empleado in empleados)
+        {
+            <tr>
+                <td>@empleado.nombre</td>
+                <td>@empleado.apellido</td>
+                <td>@empleado.cargo</td>
+                <td>RD @Math.Round(empleado.salario, 2 ).ToString("C")</td>
+                <td>RD @Math.Round(empleado.calcularDescuentoAFP(empleado.salario), 2).ToString("C")</td>
+                <td>RD @Math.Round(empleado.calcularDescuentoARS(empleado.salario), 2).ToString("C")</td>
+                <td>RD @Math.Round(empleado.calcularDescuentoISR(empleado.salario), 2).ToString("C")</td>
+                <td>RD @Math.Round(empleado.calcularTotalDescuentos(empleado.salario), 2).ToString("C")</td>
+                <td>RD @Math.Round(empleado.calcularSueldoNeto(empleado.salario), 2).ToString("C")</td>
+            </tr>
+        }
+    </tbody>
+</table>
